@@ -52,26 +52,30 @@ const Index = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-br from-background via-background to-secondary/20">
+    <div className="flex flex-col h-screen bg-gradient-to-br from-background via-background to-secondary/30 relative overflow-hidden">
+      {/* Ambient Background */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/5 via-transparent to-transparent pointer-events-none"></div>
+      
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4 flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-glow">
+      <header className="border-b border-border/60 bg-card/80 backdrop-blur-glass sticky top-0 z-10 shadow-sm relative">
+        <div className="container mx-auto px-4 md:px-6 py-4 flex items-center gap-4">
+          <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-primary-glow shadow-lg shadow-primary/20">
             <GraduationCap className="h-6 w-6 text-primary-foreground" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-foreground">Campus Mate</h1>
-            <p className="text-xs text-muted-foreground">Your College Assistant</p>
+            <h1 className="text-xl font-display font-bold text-foreground">Campus Mate</h1>
+            <p className="text-sm text-muted-foreground">AI-powered college assistant</p>
           </div>
         </div>
       </header>
 
       {/* Chat Area */}
-      <div className="flex-1 container mx-auto px-4 flex flex-col overflow-hidden">
+      <div className="flex-1 container mx-auto px-4 md:px-6 flex flex-col overflow-hidden relative">
         {messages.length === 0 ? (
           <WelcomeScreen onQuestionClick={handleSendMessage} />
         ) : (
-          <ScrollArea className="flex-1 py-6" ref={scrollRef}>
+          <ScrollArea className="flex-1 py-8" ref={scrollRef}>
             <div className="max-w-4xl mx-auto">
               {messages.map((msg, index) => (
                 <ChatMessage
@@ -88,8 +92,8 @@ const Index = () => {
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-border bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4 max-w-4xl">
+      <div className="border-t border-border/60 bg-card/80 backdrop-blur-glass shadow-lg relative">
+        <div className="container mx-auto px-4 md:px-6 py-5 max-w-4xl">
           <ChatInput onSend={handleSendMessage} disabled={isLoading} />
         </div>
       </div>

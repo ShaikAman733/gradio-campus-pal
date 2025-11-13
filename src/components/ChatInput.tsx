@@ -27,20 +27,25 @@ export const ChatInput = ({ onSend, disabled }: ChatInputProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 items-end">
-      <Textarea
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="Ask me anything about campus..."
-        disabled={disabled}
-        className="min-h-[60px] max-h-[120px] resize-none bg-background border-border focus-visible:ring-primary"
-        rows={1}
-      />
+    <form onSubmit={handleSubmit} className="flex gap-3 items-end">
+      <div className="flex-1 relative">
+        <Textarea
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Ask me anything about campus..."
+          disabled={disabled}
+          className="min-h-[64px] max-h-[140px] resize-none bg-background border-border/60 focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary rounded-2xl px-5 py-4 text-[15px] shadow-sm"
+          rows={1}
+        />
+        <div className="absolute bottom-3 right-3 text-xs text-muted-foreground/50 pointer-events-none">
+          Press Enter to send
+        </div>
+      </div>
       <Button 
         type="submit" 
         disabled={!message.trim() || disabled}
-        className="h-[60px] px-6 bg-primary hover:bg-primary/90 text-primary-foreground"
+        className="h-[64px] w-[64px] bg-gradient-to-br from-primary to-primary-glow hover:from-primary/90 hover:to-primary-glow/90 text-primary-foreground rounded-2xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
       >
         <Send className="h-5 w-5" />
       </Button>
