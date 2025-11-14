@@ -9,35 +9,19 @@ export interface ChatMessage {
 export const sendMessageToGradio = async (message: string): Promise<string> => {
   try {
     const client = await Client.connect("amanshaik7/mate");
-    const result = await client.predict("/chat", { 		
-      message: message, 
-    });
+    // The API expects an array format, not an object
+    const result = await client.predict("/chat", [message]);
 
     console.log("Full API result:", result);
     console.log("API result.data:", result.data);
-    console.log("Type of result.data:", typeof result.data);
-    console.log("Is array?", Array.isArray(result.data));
-
-    // Extract the response from the result
-    if (result && result.data) {
-      // Handle both string and object responses
-      if (typeof result.data === 'string') {
-        return result.data;
-      }
-      // If it's an object with content property, extract it
-      if (typeof result.data === 'object' && 'content' in result.data) {
-        return result.data.content as string;
-      }
-      // If it's an array, get the first item's content
-      if (Array.isArray(result.data) && result.data.length > 0) {
-        const firstItem = result.data[0];
-        console.log("First item in array:", firstItem);
-        console.log("Type of first item:", typeof firstItem);
-        if (typeof firstItem === 'string') return firstItem;
-        if (typeof firstItem === 'object' && 'content' in firstItem) {
-          return firstItem.content as string;
-        }
-      }
+    
+    // The API returns JSON data
+    if (result && result.data !== undefined && result.data !== null) {
+      // Convert to string if it's not already
+      const response = typeof result.data === 'string' 
+        ? result.data 
+        : JSON.stringify(result.data);
+      return response;
     }
     
     throw new Error("Invalid response from chatbot");
