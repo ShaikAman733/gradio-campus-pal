@@ -13,6 +13,11 @@ export const sendMessageToGradio = async (message: string): Promise<string> => {
       message: message, 
     });
 
+    console.log("Full API result:", result);
+    console.log("API result.data:", result.data);
+    console.log("Type of result.data:", typeof result.data);
+    console.log("Is array?", Array.isArray(result.data));
+
     // Extract the response from the result
     if (result && result.data) {
       // Handle both string and object responses
@@ -26,6 +31,8 @@ export const sendMessageToGradio = async (message: string): Promise<string> => {
       // If it's an array, get the first item's content
       if (Array.isArray(result.data) && result.data.length > 0) {
         const firstItem = result.data[0];
+        console.log("First item in array:", firstItem);
+        console.log("Type of first item:", typeof firstItem);
         if (typeof firstItem === 'string') return firstItem;
         if (typeof firstItem === 'object' && 'content' in firstItem) {
           return firstItem.content as string;
