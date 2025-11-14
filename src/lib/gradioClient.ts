@@ -8,7 +8,7 @@ export interface ChatMessage {
 
 export const sendMessageToGradio = async (message: string): Promise<string> => {
   try {
-    const client = await Client.connect("amanshaik7/college_chatbot");
+    const client = await Client.connect("amanshaik7/mate");
     const result = await client.predict("/chat", { 		
       message: message, 
     });
