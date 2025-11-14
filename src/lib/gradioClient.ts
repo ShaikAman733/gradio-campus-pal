@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { Client } from "@gradio/client";
 
 export interface ChatMessage {
   role: 'user' | 'assistant';
@@ -8,17 +8,15 @@ export interface ChatMessage {
 
 export const sendMessageToGemini = async (message: string): Promise<string> => {
   try {
-    const { data, error } = await supabase.functions.invoke('chat', {
-      body: { message }
+    const client = await Client.connect("amanshaik7/mate");
+    const result = await client.predict("/chat", { 
+      message: message
     });
 
-    if (error) {
-      console.error("Error calling chat function:", error);
-      throw new Error("Failed to get response from AI. Please try again.");
-    }
-
-    if (data && data.response) {
-      return data.response;
+    console.log(result.data);
+    
+    if (result.data) {
+      return result.data as string;
     }
     
     throw new Error("Invalid response from AI");
