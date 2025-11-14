@@ -3,7 +3,7 @@ import { ChatMessage } from "@/components/ChatMessage";
 import { ChatInput } from "@/components/ChatInput";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { TypingIndicator } from "@/components/TypingIndicator";
-import { sendMessageToGradio, ChatMessage as ChatMessageType } from "@/lib/gradioClient";
+import { sendMessageToGemini, ChatMessage as ChatMessageType } from "@/lib/gradioClient";
 import { useToast } from "@/hooks/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { GraduationCap } from "lucide-react";
@@ -31,7 +31,7 @@ const Index = () => {
     setIsLoading(true);
 
     try {
-      const response = await sendMessageToGradio(message);
+      const response = await sendMessageToGemini(message);
       
       const assistantMessage: ChatMessageType = {
         role: 'assistant',
