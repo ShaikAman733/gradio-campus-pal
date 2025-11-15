@@ -16,20 +16,19 @@ export const sendMessageToGemini = async (message: string): Promise<string> => {
     console.log(result.data);
     
     if (result.data) {
-      // Handle if response is an object with content property
-      if (typeof result.data === 'object' && result.data !== null) {
-        if ('content' in result.data) {
-          return result.data.content as string;
-        }
-        // Handle if it's an array of messages
-        if (Array.isArray(result.data) && result.data.length > 0) {
-          const lastMessage = result.data[result.data.length - 1];
+      // Gradio returns nested array: [[{role, content}, {role, content}], null]
+      if (Array.isArray(result.data) && result.data.length > 0) {
+        const messages = result.data[0];
+        if (Array.isArray(messages) && messages.length > 0) {
+          // Get the last message (AI's response)
+          const lastMessage = messages[messages.length - 1];
           if (typeof lastMessage === 'object' && 'content' in lastMessage) {
             return lastMessage.content as string;
           }
         }
       }
-      // If it's already a string, return it
+      
+      // Fallback: if it's a plain string
       if (typeof result.data === 'string') {
         return result.data;
       }
