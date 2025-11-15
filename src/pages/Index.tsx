@@ -52,31 +52,22 @@ const Index = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-br from-background via-background to-secondary/30 relative overflow-hidden">
-      {/* Ambient Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent pointer-events-none"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/5 via-transparent to-transparent pointer-events-none"></div>
-      
+    <div className="flex flex-col h-full bg-gradient-to-br from-background via-secondary to-background">
       {/* Header */}
-      <header className="border-b border-border/60 bg-card/80 backdrop-blur-glass sticky top-0 z-10 shadow-sm relative">
-        <div className="container mx-auto px-4 md:px-6 py-4 flex items-center gap-4">
-          <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-primary-glow shadow-lg shadow-primary/20">
-            <GraduationCap className="h-6 w-6 text-primary-foreground" />
-          </div>
-          <div>
-            <h1 className="text-xl font-display font-bold text-foreground">Campus Mate</h1>
-            <p className="text-sm text-muted-foreground">AI-powered college assistant</p>
-          </div>
-        </div>
+      <header className="p-4 border-b border-border/60 bg-background/80 backdrop-blur-sm shrink-0">
+        <h1 className="text-2xl font-bold text-center bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent">
+          Campus Mate
+        </h1>
+        <p className="text-center text-muted-foreground text-sm mt-1">Your AI Campus Assistant</p>
       </header>
 
       {/* Chat Area */}
-      <div className="flex-1 container mx-auto px-4 md:px-6 flex flex-col overflow-hidden relative">
-        {messages.length === 0 ? (
-          <WelcomeScreen onQuestionClick={handleSendMessage} />
-        ) : (
-          <ScrollArea className="flex-1 py-8" ref={scrollRef}>
-            <div className="max-w-4xl mx-auto">
+      <div className="flex-1 px-4 py-4 overflow-hidden">
+        <ScrollArea className="h-full pr-4">
+          {messages.length === 0 ? (
+            <WelcomeScreen onQuestionClick={handleSendMessage} />
+          ) : (
+            <div className="space-y-4 pb-4">
               {messages.map((msg, index) => (
                 <ChatMessage
                   key={index}
@@ -87,15 +78,13 @@ const Index = () => {
               ))}
               {isLoading && <TypingIndicator />}
             </div>
-          </ScrollArea>
-        )}
+          )}
+        </ScrollArea>
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-border/60 bg-card/80 backdrop-blur-glass shadow-lg relative">
-        <div className="container mx-auto px-4 md:px-6 py-5 max-w-4xl">
-          <ChatInput onSend={handleSendMessage} disabled={isLoading} />
-        </div>
+      <div className="border-t border-border/60 bg-background/80 backdrop-blur-sm p-4 shrink-0">
+        <ChatInput onSend={handleSendMessage} disabled={isLoading} />
       </div>
     </div>
   );
