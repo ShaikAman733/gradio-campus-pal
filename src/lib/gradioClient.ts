@@ -16,7 +16,23 @@ export const sendMessageToGemini = async (message: string): Promise<string> => {
     console.log(result.data);
     
     if (result.data) {
-      return result.data as string;
+      // Handle if response is an object with content property
+      if (typeof result.data === 'object' && result.data !== null) {
+        if ('content' in result.data) {
+          return result.data.content as string;
+        }
+        // Handle if it's an array of messages
+        if (Array.isArray(result.data) && result.data.length > 0) {
+          const lastMessage = result.data[result.data.length - 1];
+          if (typeof lastMessage === 'object' && 'content' in lastMessage) {
+            return lastMessage.content as string;
+          }
+        }
+      }
+      // If it's already a string, return it
+      if (typeof result.data === 'string') {
+        return result.data;
+      }
     }
     
     throw new Error("Invalid response from AI");
