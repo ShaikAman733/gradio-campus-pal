@@ -32,6 +32,7 @@ const Layout = () => {
                   <Link to="/about/trust" className="block px-4 py-2 hover:bg-secondary text-card-foreground">Trust</Link>
                   <Link to="/about/rljit" className="block px-4 py-2 hover:bg-secondary text-card-foreground">About RLJIT</Link>
                   <Link to="/about/founder" className="block px-4 py-2 hover:bg-secondary text-card-foreground">Founder</Link>
+                  <Link to="/about/principal" className="block px-4 py-2 hover:bg-secondary text-card-foreground">Principal</Link>
                 </div>
               </div>
               
@@ -41,14 +42,33 @@ const Layout = () => {
                 </button>
                 <div className="absolute top-full left-0 mt-2 w-72 bg-card border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
                   <Link to="/departments/cse" className="block px-4 py-2 hover:bg-secondary text-card-foreground">Computer Science & Engineering</Link>
+                  <Link to="/departments/aiml" className="block px-4 py-2 hover:bg-secondary text-card-foreground">AI & Machine Learning</Link>
                   <Link to="/departments/cys" className="block px-4 py-2 hover:bg-secondary text-card-foreground">Cybersecurity</Link>
                   <Link to="/departments/ds" className="block px-4 py-2 hover:bg-secondary text-card-foreground">Data Science</Link>
+                  <Link to="/departments/me" className="block px-4 py-2 hover:bg-secondary text-card-foreground">Mechanical Engineering</Link>
                   <Link to="/departments/allied" className="block px-4 py-2 hover:bg-secondary text-card-foreground">Allied Sciences</Link>
+                  <Link to="/departments/mba" className="block px-4 py-2 hover:bg-secondary text-card-foreground">MBA</Link>
+                  <Link to="/departments/mtech" className="block px-4 py-2 hover:bg-secondary text-card-foreground">M.Tech</Link>
+                </div>
+              </div>
+              
+              <div className="relative group">
+                <button className="text-foreground hover:text-primary transition-colors font-medium">
+                  Facilities
+                </button>
+                <div className="absolute top-full left-0 mt-2 w-56 bg-card border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                  <Link to="/facilities/library" className="block px-4 py-2 hover:bg-secondary text-card-foreground">Library</Link>
+                  <Link to="/facilities/hostel" className="block px-4 py-2 hover:bg-secondary text-card-foreground">Hostel</Link>
+                  <Link to="/facilities/transport" className="block px-4 py-2 hover:bg-secondary text-card-foreground">Transport</Link>
                 </div>
               </div>
               
               <Link to="/admissions" className="text-foreground hover:text-primary transition-colors font-medium">
                 Admissions
+              </Link>
+              
+              <Link to="/committees" className="text-foreground hover:text-primary transition-colors font-medium">
+                Committees
               </Link>
             </nav>
 
@@ -69,15 +89,27 @@ const Layout = () => {
                       <Link to="/about/trust" className="block pl-4 py-2">Trust</Link>
                       <Link to="/about/rljit" className="block pl-4 py-2">About RLJIT</Link>
                       <Link to="/about/founder" className="block pl-4 py-2">Founder</Link>
+                      <Link to="/about/principal" className="block pl-4 py-2">Principal</Link>
                     </div>
                     <div className="border-t pt-2">
                       <div className="font-semibold mb-2 text-muted-foreground">Departments</div>
                       <Link to="/departments/cse" className="block pl-4 py-2">CSE</Link>
+                      <Link to="/departments/aiml" className="block pl-4 py-2">AI & ML</Link>
                       <Link to="/departments/cys" className="block pl-4 py-2">Cybersecurity</Link>
                       <Link to="/departments/ds" className="block pl-4 py-2">Data Science</Link>
+                      <Link to="/departments/me" className="block pl-4 py-2">Mechanical Engg</Link>
                       <Link to="/departments/allied" className="block pl-4 py-2">Allied Sciences</Link>
+                      <Link to="/departments/mba" className="block pl-4 py-2">MBA</Link>
+                      <Link to="/departments/mtech" className="block pl-4 py-2">M.Tech</Link>
+                    </div>
+                    <div className="border-t pt-2">
+                      <div className="font-semibold mb-2 text-muted-foreground">Facilities</div>
+                      <Link to="/facilities/library" className="block pl-4 py-2">Library</Link>
+                      <Link to="/facilities/hostel" className="block pl-4 py-2">Hostel</Link>
+                      <Link to="/facilities/transport" className="block pl-4 py-2">Transport</Link>
                     </div>
                     <Link to="/admissions" className="text-lg font-medium border-t pt-2">Admissions</Link>
+                    <Link to="/committees" className="text-lg font-medium border-t pt-2">Committees</Link>
                   </nav>
                 </SheetContent>
               </Sheet>
