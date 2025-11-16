@@ -1,55 +1,38 @@
-import { useState, useEffect, useRef } from "react";
-import { ChatMessage } from "@/components/ChatMessage";
-import { ChatInput } from "@/components/ChatInput";
-import { WelcomeScreen } from "@/components/WelcomeScreen";
-import { TypingIndicator } from "@/components/TypingIndicator";
-import { sendMessageToGemini, ChatMessage as ChatMessageType } from "@/lib/gradioClient";
-import { useToast } from "@/hooks/use-toast";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { GraduationCap } from "lucide-react";
+import { useEffect } from "react";
 
 const Index = () => {
-  const [messages, setMessages] = useState<ChatMessageType[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-  const scrollRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages, isLoading]);
+    // Load Botpress webchat script
+    const script = document.createElement('script');
+    script.src = 'https://cdn.botpress.cloud/webchat/v3.3/inject.js';
+    script.async = true;
+    document.body.appendChild(script);
 
-  const handleSendMessage = async (message: string) => {
-    const userMessage: ChatMessageType = {
-      role: 'user',
-      content: message,
-      timestamp: new Date(),
+    script.onload = () => {
+      // Initialize Botpress webchat with the provided config
+      const configUrl = 'https://files.bpcontent.cloud/2025/11/16/02/20251116025224-2J0Y7YX0.json';
+      
+      // Create iframe for Botpress webchat
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://cdn.botpress.cloud/webchat/v3.3/shareable.html?configUrl=${encodeURIComponent(configUrl)}`;
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.border = 'none';
+      
+      const container = document.getElementById('botpress-container');
+      if (container) {
+        container.appendChild(iframe);
+      }
     };
 
-    setMessages((prev) => [...prev, userMessage]);
-    setIsLoading(true);
-
-    try {
-      const response = await sendMessageToGemini(message);
-      
-      const assistantMessage: ChatMessageType = {
-        role: 'assistant',
-        content: response,
-        timestamp: new Date(),
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to send message",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    return () => {
+      // Cleanup
+      const existingScript = document.querySelector('script[src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"]');
+      if (existingScript) {
+        document.body.removeChild(existingScript);
+      }
+    };
+  }, []);
 
   return (
     <div className="flex flex-col h-full bg-gradient-to-br from-background via-secondary to-background">
@@ -61,31 +44,8 @@ const Index = () => {
         <p className="text-center text-muted-foreground text-sm mt-1">Your AI Campus Assistant</p>
       </header>
 
-      {/* Chat Area */}
-      <div className="flex-1 px-4 py-4 overflow-hidden">
-        <ScrollArea className="h-full pr-4">
-          {messages.length === 0 ? (
-            <WelcomeScreen onQuestionClick={handleSendMessage} />
-          ) : (
-            <div className="space-y-4 pb-4">
-              {messages.map((msg, index) => (
-                <ChatMessage
-                  key={index}
-                  message={msg.content}
-                  isUser={msg.role === 'user'}
-                  timestamp={msg.timestamp}
-                />
-              ))}
-              {isLoading && <TypingIndicator />}
-            </div>
-          )}
-        </ScrollArea>
-      </div>
-
-      {/* Input Area */}
-      <div className="border-t border-border/60 bg-background/80 backdrop-blur-sm p-4 shrink-0">
-        <ChatInput onSend={handleSendMessage} disabled={isLoading} />
-      </div>
+      {/* Botpress Chat Area */}
+      <div id="botpress-container" className="flex-1 w-full"></div>
     </div>
   );
 };
