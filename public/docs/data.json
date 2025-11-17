@@ -1,0 +1,72 @@
+{
+  "departments": [
+    {
+      "id": "cse",
+      "name": "Computer Science & Engineering",
+      "icon": "cpu",
+      "path": "/departments/cse"
+    },
+    {
+      "id": "aiml",
+      "name": "AI & Machine Learning",
+      "icon": "brain",
+      "path": "/departments/aiml"
+    },
+    {
+      "id": "ds",
+      "name": "Data Science",
+      "icon": "database",
+      "path": "/departments/data-science"
+    },
+    {
+      "id": "cyber",
+      "name": "Cybersecurity",
+      "icon": "shield",
+      "path": "/departments/cybersecurity"
+    },
+    {
+      "id": "me",
+      "name": "Mechanical Engineering",
+      "icon": "cog",
+      "path": "/departments/mechanical-engineering"
+    },
+    {
+      "id": "mba",
+      "name": "MBA",
+      "icon": "briefcase",
+      "path": "/departments/mba"
+    }
+  ],
+  "faq": [
+    {
+      "id": "admission",
+      "question": "How do I apply for admission?",
+      "category": "Admissions"
+    },
+    {
+      "id": "fees",
+      "question": "What are the fee structures?",
+      "category": "Admissions"
+    },
+    {
+      "id": "hostel",
+      "question": "Tell me about hostel facilities",
+      "category": "Facilities"
+    },
+    {
+      "id": "library",
+      "question": "What library resources are available?",
+      "category": "Facilities"
+    },
+    {
+      "id": "transport",
+      "question": "How does campus transport work?",
+      "category": "Facilities"
+    },
+    {
+      "id": "placements",
+      "question": "What are the placement statistics?",
+      "category": "Placements"
+    }
+  ]
+}
